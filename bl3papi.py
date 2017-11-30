@@ -77,8 +77,14 @@ class Bl3pApi:
 		else:
 			c.setopt(c.VERBOSE, 0)
 
-		c.perform()
-
+		perform = False
+		while perform == False:
+			try:
+				c.perform()
+				perform = True
+			except:
+				print 'pycurl error'
+		
 		response_code = c.getinfo(c.RESPONSE_CODE)
 		if response_code != 200:
 			raise Exception('unexpected response code: %d' % response_code)
